@@ -1,10 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery.min.js"></script>
+
+    <script src="https://cloud.minapp.com/custom-userdash/auth/:bbc5579a30dcf285fdcc/"></script>
 </head>
-<body>
-	
+
+<body data-type="login">
+    <script src="assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+        <!-- 风格切换 -->
+        <div class="tpl-skiner">
+            <div class="tpl-skiner-toggle am-icon-cog">
+            </div>
+            <div class="tpl-skiner-content">
+                <div class="tpl-skiner-content-title">
+                    选择主题
+                </div>
+                <div class="tpl-skiner-content-bar">
+                    <span class="skiner-color skiner-white" data-color="theme-white"></span>
+                    <span class="skiner-color skiner-black" data-color="theme-black"></span>
+                </div>
+            </div>
+        </div>
+        <div class="tpl-login">
+            <div class="tpl-login-content">
+                <div class="tpl-login-logo">
+
+                </div>
+
+
+
+                <form class="am-form tpl-form-line-form">
+                    <div class="am-form-group">
+                        <input type="text" class="tpl-form-input" id="user-name" placeholder="请输入账号">
+
+                    </div>
+
+                    <div class="am-form-group">
+                        <input type="password" class="tpl-form-input" id="user-name" placeholder="请输入密码">
+
+                    </div>
+                    <div class="am-form-group tpl-login-remember-me">
+                        <input id="remember-me" type="checkbox">
+                        <label for="remember-me">
+       
+                        记住密码
+                         </label>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="am-form-group">
+
+                        <button type="button" class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn" onclick="submitModal()">提交</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+    	//import config from './utils/config'
+
+	    	// 配置对象
+	    var config = {
+	      clientId: 'bbc5579a30dcf285fdcc', // 应用 ClientID，可在管理后台设置模块找到
+	      tableId: '34331', // 数据表 ID
+	    }
+
+	    var client = axios.create({
+		  baseURL: 'https://cloud.minapp.com/userve/v1/',// user dash api 的请求地址
+		  withCredentials: true // 必须手动开启为 true，允许跨域请求发送身份凭证信息
+		})
+
+        var submitModal = function (offset, where) {
+	      var _offset = offset || 0
+	      var _where = where || {}
+	      client.get(`table/${config.tableId}/record/`, {
+	        params: {
+	          order_by: '-updated_at',
+	          limit: 50,
+	          offset: _offset,
+	          where: _where
+	        }
+	      }).then(function(res) {
+	        var data = res.data.objects
+	        records = data
+	        var html = renderTable(data)
+	        //document.querySelector('#table-body').innerHTML = html
+	      })
+	    }
+
+	    var submitModals = function () {
+	    	
+			client.get('https://cloud.minapp.com/userve/v1/table/1/').then(res => {
+			  console.log(res.data)
+			})
+
+	    }
+
+    </script>
+
 </body>
+
 </html>
